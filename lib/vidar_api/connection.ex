@@ -23,7 +23,6 @@ defmodule VidarAPI.Connection do
                       "http://localhost"
                     )
 
-
   @typedoc """
   The list of options that can be passed to new/1.
 
@@ -33,6 +32,7 @@ defmodule VidarAPI.Connection do
   @type options :: [
           {:base_url, String.t()},
           {:user_agent, String.t()},
+          {:api_key, String.t()}
         ]
 
   @doc "Forward requests to Tesla."
@@ -70,9 +70,6 @@ defmodule VidarAPI.Connection do
     |> Tesla.client(adapter())
   end
 
-
-
-
   @doc """
   Returns fully configured middleware for passing to Tesla.client/2.
   """
@@ -88,6 +85,7 @@ defmodule VidarAPI.Connection do
     tesla_options = Application.get_env(:tesla, __MODULE__, [])
     middleware = Keyword.get(tesla_options, :middleware, [])
     json_engine = Keyword.get(tesla_options, :json, Jason)
+    api_key = Keyword.get(options, :api_key)
 
     user_agent =
       Keyword.get(
@@ -100,16 +98,13 @@ defmodule VidarAPI.Connection do
         )
       )
 
-
-
     [
       {Tesla.Middleware.BaseUrl, base_url},
-      {Tesla.Middleware.Headers, [{"user-agent", user_agent}]},
+      {Tesla.Middleware.Headers, [{"user-agent", user_agent}, {"x-api-key", api_key}]},
       {Tesla.Middleware.EncodeJson, engine: json_engine}
       | middleware
     ]
   end
-
 
   @doc """
   Returns the default adapter for this API.
