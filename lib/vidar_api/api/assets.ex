@@ -160,10 +160,10 @@ defmodule VidarAPI.Api.Assets do
 
   ### Returns
 
-  - `{:ok, [%Instrument{}, ...]}` on success
+  - `{:ok, VidarAPI.Model.VVersionApiVersionAssetsWealthArcInstrument200Response.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec vversion_api_version_assets_wealth_arc_instrument(Tesla.Env.client, keyword()) :: {:ok, [VidarAPI.Model.Instrument.t]} | {:error, Tesla.Env.t}
+  @spec vversion_api_version_assets_wealth_arc_instrument(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.VVersionApiVersionAssetsWealthArcInstrument200Response.t} | {:error, Tesla.Env.t}
   def vversion_api_version_assets_wealth_arc_instrument(connection, opts \\ []) do
     optional_params = %{
       :select => :query,
@@ -185,7 +185,7 @@ defmodule VidarAPI.Api.Assets do
     connection
     |> Connection.request(request)
     |> evaluate_response([
-      {200, VidarAPI.Model.Instrument}
+      {200, VidarAPI.Model.VVersionApiVersionAssetsWealthArcInstrument200Response}
     ])
   end
 end

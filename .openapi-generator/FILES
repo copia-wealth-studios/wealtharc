@@ -1,6 +1,5 @@
 .formatter.exs
 .gitignore
-.openapi-generator-ignore
 README.md
 config/config.exs
 config/runtime.exs
@@ -28,6 +27,7 @@ lib/vidar_api/model/position_value.ex
 lib/vidar_api/model/transaction.ex
 lib/vidar_api/model/transaction_type.ex
 lib/vidar_api/model/transaction_value.ex
+lib/vidar_api/model/v_version_api_version__assets_wealth_arc_instrument_200_response.ex
 lib/vidar_api/request_builder.ex
 mix.exs
 test/test_helper.exs
