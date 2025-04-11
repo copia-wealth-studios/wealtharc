@@ -10,6 +10,45 @@ defmodule VidarAPI.Api.Assets do
   import VidarAPI.RequestBuilder
 
   @doc """
+  Get asset by id
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:  Selecting data set: /Assets/{key}?$select=id, name, iban, currency  
+
+  ### Parameters
+
+  - `connection` (VidarAPI.Connection): Connection to server
+  - `key` (integer()): Asset unique id
+  - `opts` (keyword): Optional parameters
+    - `:select` (String.t): Limits the properties returned in the result.
+    - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
+
+  ### Returns
+
+  - `{:ok, VidarAPI.Model.AssetODataResponse.t}` on success
+  - `{:error, Tesla.Env.t}` on failure
+  """
+  @spec get_asset(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.AssetODataResponse.t} | {:error, Tesla.Env.t}
+  def get_asset(connection, key, opts \\ []) do
+    optional_params = %{
+      :select => :query,
+      :expand => :query
+    }
+
+    request =
+      %{}
+      |> method(:get)
+      |> url("/v1/Assets/#{key}")
+      |> add_optional_params(optional_params, opts)
+      |> Enum.into([])
+
+    connection
+    |> Connection.request(request)
+    |> evaluate_response([
+      {200, VidarAPI.Model.AssetODataResponse},
+      {404, false}
+    ])
+  end
+
+  @doc """
   Get all assets
   This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Assets?$select=id, name, iban, currency    Filtering data set: /Assets?$filter=name eq 'CASH ACCOUNT IN CHF' or name eq 'CASH ACCOUNT IN USD'
 
@@ -19,19 +58,19 @@ defmodule VidarAPI.Api.Assets do
   - `opts` (keyword): Optional parameters
     - `:select` (String.t): Limits the properties returned in the result.
     - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
-    - `:filter` (String.t): Restricts the set of items returned. The maximum number of expressions is 100. The allowed functions are: allfunctions.
-    - `:orderby` (String.t): Specifies the order in which items are returned. The maximum number of expressions is 5.
-    - `:top` (integer()): Limits the number of items returned from a collection. The maximum value is 1000.
-    - `:skip` (integer()): Excludes the specified number of items of the queried collection from the result.
-    - `:count` (boolean()): Indicates whether the total count of items within a collection are returned in the result.
+    - `:filter` (String.t): Filter the results using OData syntax.
+    - `:orderby` (String.t): Order the results using OData syntax.
+    - `:top` (integer()): Maximum number of results to return.
+    - `:skip` (integer()): Number of results to skip.
+    - `:count` (boolean()): Whether to include a count of results.
 
   ### Returns
 
-  - `{:ok, [%Asset{}, ...]}` on success
+  - `{:ok, VidarAPI.Model.AssetODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec vversion_api_version_assets(Tesla.Env.client, keyword()) :: {:ok, [VidarAPI.Model.Asset.t]} | {:error, Tesla.Env.t}
-  def vversion_api_version_assets(connection, opts \\ []) do
+  @spec get_assets(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.AssetODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  def get_assets(connection, opts \\ []) do
     optional_params = %{
       :select => :query,
       :expand => :query,
@@ -52,46 +91,7 @@ defmodule VidarAPI.Api.Assets do
     connection
     |> Connection.request(request)
     |> evaluate_response([
-      {200, VidarAPI.Model.Asset}
-    ])
-  end
-
-  @doc """
-  Get asset by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:  Selecting data set: /Assets/{key}?$select=id, name, iban, currency  
-
-  ### Parameters
-
-  - `connection` (VidarAPI.Connection): Connection to server
-  - `key` (integer()): Asset unique id
-  - `opts` (keyword): Optional parameters
-    - `:select` (String.t): Limits the properties returned in the result.
-    - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
-
-  ### Returns
-
-  - `{:ok, VidarAPI.Model.Asset.t}` on success
-  - `{:error, Tesla.Env.t}` on failure
-  """
-  @spec vversion_api_version_assets_key(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.Asset.t} | {:error, Tesla.Env.t}
-  def vversion_api_version_assets_key(connection, key, opts \\ []) do
-    optional_params = %{
-      :select => :query,
-      :expand => :query
-    }
-
-    request =
-      %{}
-      |> method(:get)
-      |> url("/v1/Assets/#{key}")
-      |> add_optional_params(optional_params, opts)
-      |> Enum.into([])
-
-    connection
-    |> Connection.request(request)
-    |> evaluate_response([
-      {200, VidarAPI.Model.Asset},
-      {404, false}
+      {200, VidarAPI.Model.AssetODataCollectionResponse}
     ])
   end
 
@@ -105,19 +105,19 @@ defmodule VidarAPI.Api.Assets do
   - `opts` (keyword): Optional parameters
     - `:select` (String.t): Limits the properties returned in the result.
     - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
-    - `:filter` (String.t): Restricts the set of items returned. The maximum number of expressions is 100. The allowed functions are: allfunctions.
-    - `:orderby` (String.t): Specifies the order in which items are returned. The maximum number of expressions is 5.
-    - `:top` (integer()): Limits the number of items returned from a collection. The maximum value is 1000.
-    - `:skip` (integer()): Excludes the specified number of items of the queried collection from the result.
-    - `:count` (boolean()): Indicates whether the total count of items within a collection are returned in the result.
+    - `:filter` (String.t): Filter the results using OData syntax.
+    - `:orderby` (String.t): Order the results using OData syntax.
+    - `:top` (integer()): Maximum number of results to return.
+    - `:skip` (integer()): Number of results to skip.
+    - `:count` (boolean()): Whether to include a count of results.
 
   ### Returns
 
-  - `{:ok, [%CashAccount{}, ...]}` on success
+  - `{:ok, VidarAPI.Model.CashAccountODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec vversion_api_version_assets_wealth_arc_cash_account(Tesla.Env.client, keyword()) :: {:ok, [VidarAPI.Model.CashAccount.t]} | {:error, Tesla.Env.t}
-  def vversion_api_version_assets_wealth_arc_cash_account(connection, opts \\ []) do
+  @spec get_cash_accounts(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.CashAccountODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  def get_cash_accounts(connection, opts \\ []) do
     optional_params = %{
       :select => :query,
       :expand => :query,
@@ -138,7 +138,7 @@ defmodule VidarAPI.Api.Assets do
     connection
     |> Connection.request(request)
     |> evaluate_response([
-      {200, VidarAPI.Model.CashAccount}
+      {200, VidarAPI.Model.CashAccountODataCollectionResponse}
     ])
   end
 
@@ -152,19 +152,19 @@ defmodule VidarAPI.Api.Assets do
   - `opts` (keyword): Optional parameters
     - `:select` (String.t): Limits the properties returned in the result.
     - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
-    - `:filter` (String.t): Restricts the set of items returned. The maximum number of expressions is 100. The allowed functions are: allfunctions.
-    - `:orderby` (String.t): Specifies the order in which items are returned. The maximum number of expressions is 5.
-    - `:top` (integer()): Limits the number of items returned from a collection. The maximum value is 1000.
-    - `:skip` (integer()): Excludes the specified number of items of the queried collection from the result.
-    - `:count` (boolean()): Indicates whether the total count of items within a collection are returned in the result.
+    - `:filter` (String.t): Filter the results using OData syntax.
+    - `:orderby` (String.t): Order the results using OData syntax.
+    - `:top` (integer()): Maximum number of results to return.
+    - `:skip` (integer()): Number of results to skip.
+    - `:count` (boolean()): Whether to include a count of results.
 
   ### Returns
 
-  - `{:ok, VidarAPI.Model.VVersionApiVersionAssetsWealthArcInstrument200Response.t}` on success
+  - `{:ok, VidarAPI.Model.InstrumentODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec vversion_api_version_assets_wealth_arc_instrument(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.VVersionApiVersionAssetsWealthArcInstrument200Response.t} | {:error, Tesla.Env.t}
-  def vversion_api_version_assets_wealth_arc_instrument(connection, opts \\ []) do
+  @spec get_instruments(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.InstrumentODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  def get_instruments(connection, opts \\ []) do
     optional_params = %{
       :select => :query,
       :expand => :query,
@@ -185,7 +185,7 @@ defmodule VidarAPI.Api.Assets do
     connection
     |> Connection.request(request)
     |> evaluate_response([
-      {200, VidarAPI.Model.VVersionApiVersionAssetsWealthArcInstrument200Response}
+      {200, VidarAPI.Model.InstrumentODataCollectionResponse}
     ])
   end
 end

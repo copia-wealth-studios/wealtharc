@@ -10,6 +10,45 @@ defmodule VidarAPI.Api.Transactions do
   import VidarAPI.RequestBuilder
 
   @doc """
+  Get transaction by id
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Transactions/{key}?$select=id, portfolioId, instrumentId, Quantity  
+
+  ### Parameters
+
+  - `connection` (VidarAPI.Connection): Connection to server
+  - `key` (integer()): Transaction id
+  - `opts` (keyword): Optional parameters
+    - `:select` (String.t): Limits the properties returned in the result.
+    - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
+
+  ### Returns
+
+  - `{:ok, VidarAPI.Model.TransactionODataResponse.t}` on success
+  - `{:error, Tesla.Env.t}` on failure
+  """
+  @spec get_transaction(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.TransactionODataResponse.t} | {:error, Tesla.Env.t}
+  def get_transaction(connection, key, opts \\ []) do
+    optional_params = %{
+      :select => :query,
+      :expand => :query
+    }
+
+    request =
+      %{}
+      |> method(:get)
+      |> url("/v1/Transactions/#{key}")
+      |> add_optional_params(optional_params, opts)
+      |> Enum.into([])
+
+    connection
+    |> Connection.request(request)
+    |> evaluate_response([
+      {200, VidarAPI.Model.TransactionODataResponse},
+      {404, false}
+    ])
+  end
+
+  @doc """
   Get all transactions
   This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Transactions?$select=id, instrumentId    Filtering data set: /Transactions?$filter=portfolioId eq 20146
 
@@ -19,19 +58,19 @@ defmodule VidarAPI.Api.Transactions do
   - `opts` (keyword): Optional parameters
     - `:select` (String.t): Limits the properties returned in the result.
     - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
-    - `:filter` (String.t): Restricts the set of items returned. The maximum number of expressions is 100. The allowed functions are: allfunctions.
-    - `:orderby` (String.t): Specifies the order in which items are returned. The maximum number of expressions is 5.
-    - `:top` (integer()): Limits the number of items returned from a collection. The maximum value is 1000.
-    - `:skip` (integer()): Excludes the specified number of items of the queried collection from the result.
-    - `:count` (boolean()): Indicates whether the total count of items within a collection are returned in the result.
+    - `:filter` (String.t): Filter the results using OData syntax.
+    - `:orderby` (String.t): Order the results using OData syntax.
+    - `:top` (integer()): Maximum number of results to return.
+    - `:skip` (integer()): Number of results to skip.
+    - `:count` (boolean()): Whether to include a count of results.
 
   ### Returns
 
-  - `{:ok, [%Transaction{}, ...]}` on success
+  - `{:ok, VidarAPI.Model.TransactionODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec vversion_api_version_transactions(Tesla.Env.client, keyword()) :: {:ok, [VidarAPI.Model.Transaction.t]} | {:error, Tesla.Env.t}
-  def vversion_api_version_transactions(connection, opts \\ []) do
+  @spec get_transactions(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.TransactionODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  def get_transactions(connection, opts \\ []) do
     optional_params = %{
       :select => :query,
       :expand => :query,
@@ -52,46 +91,7 @@ defmodule VidarAPI.Api.Transactions do
     connection
     |> Connection.request(request)
     |> evaluate_response([
-      {200, VidarAPI.Model.Transaction}
-    ])
-  end
-
-  @doc """
-  Get transaction by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Transactions/{key}?$select=id, portfolioId, instrumentId, Quantity  
-
-  ### Parameters
-
-  - `connection` (VidarAPI.Connection): Connection to server
-  - `key` (integer()): 
-  - `opts` (keyword): Optional parameters
-    - `:select` (String.t): Limits the properties returned in the result.
-    - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
-
-  ### Returns
-
-  - `{:ok, VidarAPI.Model.Transaction.t}` on success
-  - `{:error, Tesla.Env.t}` on failure
-  """
-  @spec vversion_api_version_transactions_key(Tesla.Env.client, integer(), keyword()) :: {:ok, VidarAPI.Model.Transaction.t} | {:ok, nil} | {:error, Tesla.Env.t}
-  def vversion_api_version_transactions_key(connection, key, opts \\ []) do
-    optional_params = %{
-      :select => :query,
-      :expand => :query
-    }
-
-    request =
-      %{}
-      |> method(:get)
-      |> url("/v1/Transactions/#{key}")
-      |> add_optional_params(optional_params, opts)
-      |> Enum.into([])
-
-    connection
-    |> Connection.request(request)
-    |> evaluate_response([
-      {200, VidarAPI.Model.Transaction},
-      {404, false}
+      {200, VidarAPI.Model.TransactionODataCollectionResponse}
     ])
   end
 end

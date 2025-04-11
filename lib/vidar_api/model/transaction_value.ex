@@ -9,6 +9,7 @@ defmodule VidarAPI.Model.TransactionValue do
   @derive Jason.Encoder
   defstruct [
     :id,
+    :transactionId,
     :amount,
     :currency,
     :fxRateDate,
@@ -20,6 +21,7 @@ defmodule VidarAPI.Model.TransactionValue do
 
   @type t :: %__MODULE__{
     :id => String.t | nil,
+    :transactionId => integer() | nil,
     :amount => float() | nil,
     :currency => String.t | nil,
     :fxRateDate => String.t | nil,

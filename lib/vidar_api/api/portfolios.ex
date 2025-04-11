@@ -10,6 +10,45 @@ defmodule VidarAPI.Api.Portfolios do
   import VidarAPI.RequestBuilder
 
   @doc """
+  Get portfolio by id
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Portfolios/{key}?$select=id, name, currency  
+
+  ### Parameters
+
+  - `connection` (VidarAPI.Connection): Connection to server
+  - `key` (integer()): Portfolio  unique id
+  - `opts` (keyword): Optional parameters
+    - `:select` (String.t): Limits the properties returned in the result.
+    - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
+
+  ### Returns
+
+  - `{:ok, VidarAPI.Model.PortfolioODataResponse.t}` on success
+  - `{:error, Tesla.Env.t}` on failure
+  """
+  @spec get_portfolio(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.PortfolioODataResponse.t} | {:error, Tesla.Env.t}
+  def get_portfolio(connection, key, opts \\ []) do
+    optional_params = %{
+      :select => :query,
+      :expand => :query
+    }
+
+    request =
+      %{}
+      |> method(:get)
+      |> url("/v1/Portfolios/#{key}")
+      |> add_optional_params(optional_params, opts)
+      |> Enum.into([])
+
+    connection
+    |> Connection.request(request)
+    |> evaluate_response([
+      {200, VidarAPI.Model.PortfolioODataResponse},
+      {404, false}
+    ])
+  end
+
+  @doc """
   Get all portfolios
   This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Portfolios?$select=id, name, currency    Filtering data set: /Portfolios?$filter=name eq 'Test Portfolio'
 
@@ -19,19 +58,19 @@ defmodule VidarAPI.Api.Portfolios do
   - `opts` (keyword): Optional parameters
     - `:select` (String.t): Limits the properties returned in the result.
     - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
-    - `:filter` (String.t): Restricts the set of items returned. The maximum number of expressions is 100. The allowed functions are: allfunctions.
-    - `:orderby` (String.t): Specifies the order in which items are returned. The maximum number of expressions is 5.
-    - `:top` (integer()): Limits the number of items returned from a collection. The maximum value is 1000.
-    - `:skip` (integer()): Excludes the specified number of items of the queried collection from the result.
-    - `:count` (boolean()): Indicates whether the total count of items within a collection are returned in the result.
+    - `:filter` (String.t): Filter the results using OData syntax.
+    - `:orderby` (String.t): Order the results using OData syntax.
+    - `:top` (integer()): Maximum number of results to return.
+    - `:skip` (integer()): Number of results to skip.
+    - `:count` (boolean()): Whether to include a count of results.
 
   ### Returns
 
-  - `{:ok, [%Portfolio{}, ...]}` on success
+  - `{:ok, VidarAPI.Model.PortfolioODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec vversion_api_version_portfolios(Tesla.Env.client, keyword()) :: {:ok, [VidarAPI.Model.Portfolio.t]} | {:error, Tesla.Env.t}
-  def vversion_api_version_portfolios(connection, opts \\ []) do
+  @spec get_portfolios(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.PortfolioODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  def get_portfolios(connection, opts \\ []) do
     optional_params = %{
       :select => :query,
       :expand => :query,
@@ -52,46 +91,7 @@ defmodule VidarAPI.Api.Portfolios do
     connection
     |> Connection.request(request)
     |> evaluate_response([
-      {200, VidarAPI.Model.Portfolio}
-    ])
-  end
-
-  @doc """
-  Get portfolio by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Portfolios/{key}?$select=id, name, currency  
-
-  ### Parameters
-
-  - `connection` (VidarAPI.Connection): Connection to server
-  - `key` (integer()): Portfolio  unique id
-  - `opts` (keyword): Optional parameters
-    - `:select` (String.t): Limits the properties returned in the result.
-    - `:expand` (String.t): Indicates the related entities to be represented inline. The maximum depth is 2.
-
-  ### Returns
-
-  - `{:ok, VidarAPI.Model.Portfolio.t}` on success
-  - `{:error, Tesla.Env.t}` on failure
-  """
-  @spec vversion_api_version_portfolios_key(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.Portfolio.t} | {:error, Tesla.Env.t}
-  def vversion_api_version_portfolios_key(connection, key, opts \\ []) do
-    optional_params = %{
-      :select => :query,
-      :expand => :query
-    }
-
-    request =
-      %{}
-      |> method(:get)
-      |> url("/v1/Portfolios/#{key}")
-      |> add_optional_params(optional_params, opts)
-      |> Enum.into([])
-
-    connection
-    |> Connection.request(request)
-    |> evaluate_response([
-      {200, VidarAPI.Model.Portfolio},
-      {404, false}
+      {200, VidarAPI.Model.PortfolioODataCollectionResponse}
     ])
   end
 end

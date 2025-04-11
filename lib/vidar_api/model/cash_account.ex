@@ -3,12 +3,11 @@
 
 defmodule VidarAPI.Model.CashAccount do
   @moduledoc """
-  
+  Entity representing cash account
   """
 
   @derive Jason.Encoder
   defstruct [
-    :iban,
     :id,
     :name,
     :currency,
@@ -19,11 +18,11 @@ defmodule VidarAPI.Model.CashAccount do
     :quotationFactor,
     :interestRate,
     :maturityDate,
-    :riskScore
+    :riskScore,
+    :iban
   ]
 
   @type t :: %__MODULE__{
-    :iban => String.t | nil,
     :id => integer() | nil,
     :name => String.t | nil,
     :currency => String.t | nil,
@@ -34,7 +33,8 @@ defmodule VidarAPI.Model.CashAccount do
     :quotationFactor => float() | nil,
     :interestRate => float() | nil,
     :maturityDate => Date.t | nil,
-    :riskScore => integer() | nil
+    :riskScore => integer() | nil,
+    :iban => String.t | nil
   }
 
   alias VidarAPI.Deserializer
