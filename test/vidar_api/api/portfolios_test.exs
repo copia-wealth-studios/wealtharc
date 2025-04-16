@@ -11,9 +11,9 @@ defmodule VidarAPI.Api.PortfoliosTest do
   alias VidarAPI.Connection
 
   alias VidarAPI.Model.{
-    PortfolioODataResponse,
+    Portfolio,
     PortfolioODataCollectionResponse,
-    Portfolio
+    PortfolioODataResponse
   }
 
   describe "get_portfolio/3" do

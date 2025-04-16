@@ -8,6 +8,11 @@ defmodule VidarAPI.Mixfile do
       elixir: "~> 1.10",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
+      dialyzer: [
+        plt_add_deps: :apps_tree,
+        plt_add_apps: [:ex_unit, :mix],
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      ],
       package: package(),
       description: """
       WealthDataBox API with OData.

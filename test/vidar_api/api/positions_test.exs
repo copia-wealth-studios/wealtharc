@@ -11,8 +11,8 @@ defmodule VidarAPI.Api.PositionsTest do
   alias VidarAPI.Connection
 
   alias VidarAPI.Model.{
-    PositionODataCollectionResponse,
-    Position
+    Position,
+    PositionODataCollectionResponse
   }
 
   describe "get_position/3" do

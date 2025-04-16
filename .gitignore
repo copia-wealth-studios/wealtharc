@@ -21,3 +21,7 @@ erl_crash.dump
 
 # Ignore elixir LS
 /.elixir_ls
+
+# Dialyzer PLTs
+/priv/plts/*.plt
+/priv/plts/*.plt.hash

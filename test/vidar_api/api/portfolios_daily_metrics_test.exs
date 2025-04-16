@@ -11,8 +11,8 @@ defmodule VidarAPI.Api.PortfoliosDailyMetricsTest do
   alias VidarAPI.Connection
 
   alias VidarAPI.Model.{
-    PortfolioDailyMetricsODataCollectionResponse,
-    PortfolioDailyMetrics
+    PortfolioDailyMetrics,
+    PortfolioDailyMetricsODataCollectionResponse
   }
 
   describe "get_portfolio_daily_metrics/3" do
