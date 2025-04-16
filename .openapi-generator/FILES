@@ -1,8 +1,4 @@
 .formatter.exs
-.gitignore
-README.md
-config/config.exs
-config/runtime.exs
 lib/vidar_api/api/assets.ex
 lib/vidar_api/api/portfolios.ex
 lib/vidar_api/api/portfolios_daily_metrics.ex
@@ -42,5 +38,4 @@ lib/vidar_api/model/transaction_o_data_response.ex
 lib/vidar_api/model/transaction_type.ex
 lib/vidar_api/model/transaction_value.ex
 lib/vidar_api/request_builder.ex
-mix.exs
 test/test_helper.exs
