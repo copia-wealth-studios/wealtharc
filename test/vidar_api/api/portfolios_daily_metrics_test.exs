@@ -16,7 +16,7 @@ defmodule VidarAPI.Api.PortfoliosDailyMetricsTest do
   }
 
   describe "get_portfolio_daily_metrics/3" do
-    # FIXME: Endpoint/Spec is still bad
+    # TODO: Endpoint/Spec is still bad
     @tag :skip
     test "gets a portfolio daily metrics by id" do
       with_mock(Connection, [:passthrough],

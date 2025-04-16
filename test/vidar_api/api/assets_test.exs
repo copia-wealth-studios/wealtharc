@@ -21,7 +21,7 @@ defmodule VidarAPI.Api.AssetsTest do
   }
 
   describe "get_asset/3" do
-    # FIXME: Endpoint/Spec is still bad
+    # TODO: Endpoint/Spec is still bad
     @tag :skip
     test "gets an asset" do
       with_mock(Connection, [:passthrough],
@@ -35,7 +35,47 @@ defmodule VidarAPI.Api.AssetsTest do
   end
 
   defp get_asset_sample_response do
-    {:ok, %Tesla.Env{}}
+    {:ok,
+    %Tesla.Env{
+      method: :get,
+      url: "https://api.wealthdatabox.com/v1/Assets/25202",
+      query: [],
+      headers: [
+        {"date", "Wed, 16 Apr 2025 17:09:29 GMT"},
+        {"server", "Microsoft-IIS/10.0"},
+        {"content-length", "967"},
+        {"content-type",
+         "application/json; odata.metadata=minimal; odata.streaming=true; charset=utf-8"},
+        {"set-cookie",
+         "ARRAffinity=a5ee0dd026b0074d60e19cc7507a4621df82ae49c703b54e9551d7d4f8e290b3;Path=/;HttpOnly;Secure;Domain=api.wealthdatabox.com"},
+        {"set-cookie",
+         "ARRAffinitySameSite=a5ee0dd026b0074d60e19cc7507a4621df82ae49c703b54e9551d7d4f8e290b3;Path=/;HttpOnly;SameSite=None;Secure;Domain=api.wealthdatabox.com"},
+        {"request-context", "appId=cid-v1:433a7ca8-c20d-4179-bec5-d77ac64fb73c"},
+        {"odata-version", "4.0"},
+        {"api-supported-versions", "1.0"},
+        {"x-powered-by", "ASP.NET"}
+      ],
+      body: "{\"@odata.context\":\"https://api.wealthdatabox.com/v1/$metadata#Assets/WealthArc.Instrument/$entity\",\"@odata.type\":\"#WealthArc.Instrument\",\"id\":25202,\"name\":\"UBS Group AG&GA\",\"currency\":\"CHF\",\"assetClass\":\"Equities\",\"assetSubClass\":\"Equities\",\"investmentType\":\"Equities\",\"description\":\"ASDF & FDSA\",\"quotationFactor\":1.0,\"interestRate\":null,\"maturityDate\":\"2025-07-30\",\"riskScore\":5,\"isin\":\"CH0244767585\",\"valor\":\"24476758& 222222\",\"region\":\"Poland\",\"country\":\"PL\",\"sector\":\"Financials\",\"industryGroup\":\"Diversified Financials\",\"industry\":\"Capital Markets\",\"subIndustry\":\"Diversified Capital Markets\",\"instrumentInfo\":\"sdksjfkldsjfdslkfjdslfsssssssss & sssss\",\"wkn\":\"A12DFH\",\"cusip\":\"H42097107\",\"sedol\":\"BRJL176\",\"ric\":\"UBSG.S\",\"figi\":null,\"optionType\":null,\"underlyingInstrument\":null,\"underlyingInstrumentIsin\":null,\"strikePrice\":null,\"multiplier\":1.0000,\"instrumentIssuer\":null,\"suitabilityScore\":1,\"appropriatenessScore\":2,\"priceSourceForManualPortfolio\":\"feedUBS\"}",
+      status: 200,
+      opts: [],
+      __module__: Tesla,
+      __client__: %Tesla.Client{
+        fun: nil,
+        pre: [
+          {Tesla.Middleware.BaseUrl, :call, ["https://api.wealthdatabox.com/"]},
+          {Tesla.Middleware.Headers, :call,
+           [
+             [
+               {"user-agent", "openapi-generator - VidarAPI 1.0.0 - elixir"},
+               {"x-api-key", "<api_key>"}
+             ]
+           ]},
+          {Tesla.Middleware.EncodeJson, :call, [[engine: Jason]]}
+        ],
+        post: [],
+        adapter: {Tesla.Adapter.Httpc, :call, [[]]}
+      }
+    }}
   end
 
   describe "get_assets/2" do

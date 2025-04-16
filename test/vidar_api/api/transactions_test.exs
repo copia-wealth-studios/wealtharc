@@ -16,7 +16,7 @@ defmodule VidarAPI.Api.TransactionsTest do
   }
 
   describe "get_transaction/3" do
-    # FIXME: Endpoint/Spec is still bad
+    # TODO: Endpoint/Spec is still bad
     @tag :skip
     test "gets a transaction by id" do
       with_mock(Connection, [:passthrough],

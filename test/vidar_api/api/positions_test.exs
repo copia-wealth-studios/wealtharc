@@ -16,7 +16,7 @@ defmodule VidarAPI.Api.PositionsTest do
   }
 
   describe "get_position/3" do
-    # FIXME: Endpoint/Spec is still bad
+    # TODO: Endpoint/Spec is still bad
     @tag :skip
     test "gets a position by id" do
       with_mock(Connection, [:passthrough],

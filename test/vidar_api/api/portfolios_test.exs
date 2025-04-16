@@ -17,7 +17,7 @@ defmodule VidarAPI.Api.PortfoliosTest do
   }
 
   describe "get_portfolio/3" do
-    # FIXME: Endpoint/Spec is still bad
+    # TODO: Endpoint/Spec is still bad
     @tag :skip
     test "gets a portfolio" do
       with_mock(Connection, [:passthrough],
