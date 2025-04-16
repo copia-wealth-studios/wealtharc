@@ -11,7 +11,7 @@ defmodule VidarAPI.Api.Transactions do
 
   @doc """
   Get transaction by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Transactions/{key}?$select=id, portfolioId, instrumentId, Quantity
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Transactions/{key}?$select=id, portfolioId, instrumentId, Quantity  
 
   ### Parameters
 

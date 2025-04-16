@@ -11,7 +11,7 @@ defmodule VidarAPI.Api.Assets do
 
   @doc """
   Get asset by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:  Selecting data set: /Assets/{key}?$select=id, name, iban, currency
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:  Selecting data set: /Assets/{key}?$select=id, name, iban, currency  
 
   ### Parameters
 

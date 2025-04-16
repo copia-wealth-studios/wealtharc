@@ -11,7 +11,7 @@ defmodule VidarAPI.Api.Portfolios do
 
   @doc """
   Get portfolio by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Portfolios/{key}?$select=id, name, currency
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Portfolios/{key}?$select=id, name, currency  
 
   ### Parameters
 

@@ -11,7 +11,7 @@ defmodule VidarAPI.Api.Positions do
 
   @doc """
   Get position by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Positions/{key}?$select=portfolioId, instrumentId, statementDate, quantity, price
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Positions/{key}?$select=portfolioId, instrumentId, statementDate, quantity, price  
 
   ### Parameters
 
