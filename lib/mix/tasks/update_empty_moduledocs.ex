@@ -1,17 +1,17 @@
 defmodule Mix.Tasks.UpdateEmptyModuledocs do
   @moduledoc """
-  Updates @moduledoc attributes in lib/tetra_trust_api modules.
+  Updates @moduledoc attributes in lib/vidar_api modules.
 
-  This task traverses all .ex files in the lib/tetra_trust_api directory and
+  This task traverses all .ex files in the lib/vidar_api directory and
   replaces empty @moduledoc attributes with @moduledoc false.
   """
   use Mix.Task
 
-  @shortdoc "Updates empty @moduledoc attributes in lib/tetra_trust_api"
+  @shortdoc "Updates empty @moduledoc attributes in lib/vidar_api"
   def run(_) do
     Mix.shell().info("Updating @moduledoc attributes...")
 
-    "lib/tetra_trust_api/**/*.ex"
+    "lib/vidar_api/**/*.ex"
     |> Path.wildcard()
     |> Enum.each(&process_file/1)
 
