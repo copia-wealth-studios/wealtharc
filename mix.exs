@@ -38,14 +38,20 @@ defmodule VidarAPI.Mixfile do
       {:tesla, "~> 1.7"},
       {:jason, "~> 1.4"},
       {:ex_doc, "~> 0.30", only: :dev, runtime: false},
+
+      # Test Utils
+      {:mock, "~> 0.3.7", only: :test},
+
+      # Static Analysis
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.3", only: [:dev, :test], runtime: false}
     ]
   end
 
-   defp package do
-      [
-        name: "vidar_api",
-        files: ~w(.formatter.exs config lib mix.exs README* LICENSE*),
-      ]
+  defp package do
+    [
+      name: "vidar_api",
+      files: ~w(.formatter.exs config lib mix.exs README* LICENSE*)
+    ]
   end
 end
