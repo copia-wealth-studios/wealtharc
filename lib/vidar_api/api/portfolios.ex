@@ -11,7 +11,7 @@ defmodule VidarAPI.Api.Portfolios do
 
   @doc """
   Get portfolio by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Portfolios/{key}?$select=id, name, currency  
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Portfolios/{key}?$select=id, name, currency
 
   ### Parameters
 
@@ -26,7 +26,8 @@ defmodule VidarAPI.Api.Portfolios do
   - `{:ok, VidarAPI.Model.PortfolioODataResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_portfolio(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.PortfolioODataResponse.t} | {:error, Tesla.Env.t}
+  @spec get_portfolio(Tesla.Env.client(), integer(), keyword()) ::
+          {:ok, nil} | {:ok, VidarAPI.Model.PortfolioODataResponse.t()} | {:error, Tesla.Env.t()}
   def get_portfolio(connection, key, opts \\ []) do
     optional_params = %{
       :select => :query,
@@ -69,7 +70,8 @@ defmodule VidarAPI.Api.Portfolios do
   - `{:ok, VidarAPI.Model.PortfolioODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_portfolios(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.PortfolioODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  @spec get_portfolios(Tesla.Env.client(), keyword()) ::
+          {:ok, VidarAPI.Model.PortfolioODataCollectionResponse.t()} | {:error, Tesla.Env.t()}
   def get_portfolios(connection, opts \\ []) do
     optional_params = %{
       :select => :query,

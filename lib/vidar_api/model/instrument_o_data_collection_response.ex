@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.InstrumentODataCollectionResponse do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -14,16 +14,15 @@ defmodule VidarAPI.Model.InstrumentODataCollectionResponse do
   ]
 
   @type t :: %__MODULE__{
-    :context => String.t | nil,
-    :count => integer() | nil,
-    :value => [VidarAPI.Model.Instrument.t] | nil
-  }
+          :context => String.t() | nil,
+          :count => integer() | nil,
+          :value => [VidarAPI.Model.Instrument.t()] | nil
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:value, :list, VidarAPI.Model.Instrument)
+    |> Deserializer.deserialize(:value, :list, VidarAPI.Model.Instrument)
   end
 end
-

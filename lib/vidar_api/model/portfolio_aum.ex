@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.PortfolioAum do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -16,18 +16,17 @@ defmodule VidarAPI.Model.PortfolioAum do
   ]
 
   @type t :: %__MODULE__{
-    :portfolioDailyMetricsId => integer() | nil,
-    :statementDate => Date.t,
-    :netAmount => float() | nil,
-    :grossAmount => float() | nil,
-    :currency => String.t | nil
-  }
+          :portfolioDailyMetricsId => integer() | nil,
+          :statementDate => Date.t(),
+          :netAmount => float() | nil,
+          :grossAmount => float() | nil,
+          :currency => String.t() | nil
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:statementDate, :date, nil)
+    |> Deserializer.deserialize(:statementDate, :date, nil)
   end
 end
-

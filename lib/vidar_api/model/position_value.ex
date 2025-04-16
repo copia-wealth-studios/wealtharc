@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.PositionValue do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -20,19 +20,18 @@ defmodule VidarAPI.Model.PositionValue do
   ]
 
   @type t :: %__MODULE__{
-    :id => integer() | nil,
-    :positionId => integer() | nil,
-    :amount => float() | nil,
-    :currency => String.t | nil,
-    :fxRateDate => String.t | nil,
-    :fxRateFrom => String.t | nil,
-    :fxRateTo => String.t | nil,
-    :fxRate => float() | nil,
-    :fxRateSource => String.t | nil
-  }
+          :id => integer() | nil,
+          :positionId => integer() | nil,
+          :amount => float() | nil,
+          :currency => String.t() | nil,
+          :fxRateDate => String.t() | nil,
+          :fxRateFrom => String.t() | nil,
+          :fxRateTo => String.t() | nil,
+          :fxRate => float() | nil,
+          :fxRateSource => String.t() | nil
+        }
 
   def decode(value) do
     value
   end
 end
-

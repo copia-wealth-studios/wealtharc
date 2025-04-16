@@ -22,24 +22,23 @@ defmodule VidarAPI.Model.Asset do
   ]
 
   @type t :: %__MODULE__{
-    :id => integer() | nil,
-    :name => String.t | nil,
-    :currency => String.t | nil,
-    :assetClass => String.t | nil,
-    :assetSubClass => String.t | nil,
-    :investmentType => String.t | nil,
-    :description => String.t | nil,
-    :quotationFactor => float() | nil,
-    :interestRate => float() | nil,
-    :maturityDate => Date.t | nil,
-    :riskScore => integer() | nil
-  }
+          :id => integer() | nil,
+          :name => String.t() | nil,
+          :currency => String.t() | nil,
+          :assetClass => String.t() | nil,
+          :assetSubClass => String.t() | nil,
+          :investmentType => String.t() | nil,
+          :description => String.t() | nil,
+          :quotationFactor => float() | nil,
+          :interestRate => float() | nil,
+          :maturityDate => Date.t() | nil,
+          :riskScore => integer() | nil
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:maturityDate, :date, nil)
+    |> Deserializer.deserialize(:maturityDate, :date, nil)
   end
 end
-

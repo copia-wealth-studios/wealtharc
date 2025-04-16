@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.AssetODataCollectionResponse do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -14,16 +14,19 @@ defmodule VidarAPI.Model.AssetODataCollectionResponse do
   ]
 
   @type t :: %__MODULE__{
-    :context => String.t | nil,
-    :count => integer() | nil,
-    :value => [VidarAPI.Model.AssetODataCollectionResponseValueInner.t] | nil
-  }
+          :context => String.t() | nil,
+          :count => integer() | nil,
+          :value => [VidarAPI.Model.AssetODataCollectionResponseValueInner.t()] | nil
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:value, :list, VidarAPI.Model.AssetODataCollectionResponseValueInner)
+    |> Deserializer.deserialize(
+      :value,
+      :list,
+      VidarAPI.Model.AssetODataCollectionResponseValueInner
+    )
   end
 end
-

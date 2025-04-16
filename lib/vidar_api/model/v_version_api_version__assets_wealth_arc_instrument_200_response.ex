@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.VVersionApiVersionAssetsWealthArcInstrument200Response do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -12,14 +12,13 @@ defmodule VidarAPI.Model.VVersionApiVersionAssetsWealthArcInstrument200Response 
   ]
 
   @type t :: %__MODULE__{
-    :value => [VidarAPI.Model.Instrument.t] | nil
-  }
+          :value => [VidarAPI.Model.Instrument.t()] | nil
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:value, :list, VidarAPI.Model.Instrument)
+    |> Deserializer.deserialize(:value, :list, VidarAPI.Model.Instrument)
   end
 end
-

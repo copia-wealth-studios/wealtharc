@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.PositionODataResponse do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -13,15 +13,14 @@ defmodule VidarAPI.Model.PositionODataResponse do
   ]
 
   @type t :: %__MODULE__{
-    :context => String.t | nil,
-    :value => VidarAPI.Model.Position.t
-  }
+          :context => String.t() | nil,
+          :value => VidarAPI.Model.Position.t()
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:value, :struct, VidarAPI.Model.Position)
+    |> Deserializer.deserialize(:value, :struct, VidarAPI.Model.Position)
   end
 end
-

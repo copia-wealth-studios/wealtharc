@@ -11,7 +11,7 @@ defmodule VidarAPI.Api.Positions do
 
   @doc """
   Get position by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Positions/{key}?$select=portfolioId, instrumentId, statementDate, quantity, price  
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Positions/{key}?$select=portfolioId, instrumentId, statementDate, quantity, price
 
   ### Parameters
 
@@ -26,7 +26,8 @@ defmodule VidarAPI.Api.Positions do
   - `{:ok, VidarAPI.Model.PositionODataResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_position(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.PositionODataResponse.t} | {:error, Tesla.Env.t}
+  @spec get_position(Tesla.Env.client(), integer(), keyword()) ::
+          {:ok, nil} | {:ok, VidarAPI.Model.PositionODataResponse.t()} | {:error, Tesla.Env.t()}
   def get_position(connection, key, opts \\ []) do
     optional_params = %{
       :select => :query,
@@ -69,7 +70,8 @@ defmodule VidarAPI.Api.Positions do
   - `{:ok, VidarAPI.Model.PositionODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_positions(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.PositionODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  @spec get_positions(Tesla.Env.client(), keyword()) ::
+          {:ok, VidarAPI.Model.PositionODataCollectionResponse.t()} | {:error, Tesla.Env.t()}
   def get_positions(connection, opts \\ []) do
     optional_params = %{
       :select => :query,

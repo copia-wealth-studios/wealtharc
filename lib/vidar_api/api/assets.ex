@@ -11,7 +11,7 @@ defmodule VidarAPI.Api.Assets do
 
   @doc """
   Get asset by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:  Selecting data set: /Assets/{key}?$select=id, name, iban, currency  
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:  Selecting data set: /Assets/{key}?$select=id, name, iban, currency
 
   ### Parameters
 
@@ -26,7 +26,8 @@ defmodule VidarAPI.Api.Assets do
   - `{:ok, VidarAPI.Model.AssetODataResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_asset(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.AssetODataResponse.t} | {:error, Tesla.Env.t}
+  @spec get_asset(Tesla.Env.client(), integer(), keyword()) ::
+          {:ok, nil} | {:ok, VidarAPI.Model.AssetODataResponse.t()} | {:error, Tesla.Env.t()}
   def get_asset(connection, key, opts \\ []) do
     optional_params = %{
       :select => :query,
@@ -69,7 +70,8 @@ defmodule VidarAPI.Api.Assets do
   - `{:ok, VidarAPI.Model.AssetODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_assets(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.AssetODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  @spec get_assets(Tesla.Env.client(), keyword()) ::
+          {:ok, VidarAPI.Model.AssetODataCollectionResponse.t()} | {:error, Tesla.Env.t()}
   def get_assets(connection, opts \\ []) do
     optional_params = %{
       :select => :query,
@@ -116,7 +118,8 @@ defmodule VidarAPI.Api.Assets do
   - `{:ok, VidarAPI.Model.CashAccountODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_cash_accounts(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.CashAccountODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  @spec get_cash_accounts(Tesla.Env.client(), keyword()) ::
+          {:ok, VidarAPI.Model.CashAccountODataCollectionResponse.t()} | {:error, Tesla.Env.t()}
   def get_cash_accounts(connection, opts \\ []) do
     optional_params = %{
       :select => :query,
@@ -163,7 +166,8 @@ defmodule VidarAPI.Api.Assets do
   - `{:ok, VidarAPI.Model.InstrumentODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_instruments(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.InstrumentODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  @spec get_instruments(Tesla.Env.client(), keyword()) ::
+          {:ok, VidarAPI.Model.InstrumentODataCollectionResponse.t()} | {:error, Tesla.Env.t()}
   def get_instruments(connection, opts \\ []) do
     optional_params = %{
       :select => :query,

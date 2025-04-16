@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.PortfolioODataResponse do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -13,15 +13,14 @@ defmodule VidarAPI.Model.PortfolioODataResponse do
   ]
 
   @type t :: %__MODULE__{
-    :context => String.t | nil,
-    :value => VidarAPI.Model.Portfolio.t
-  }
+          :context => String.t() | nil,
+          :value => VidarAPI.Model.Portfolio.t()
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:value, :struct, VidarAPI.Model.Portfolio)
+    |> Deserializer.deserialize(:value, :struct, VidarAPI.Model.Portfolio)
   end
 end
-

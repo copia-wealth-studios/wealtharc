@@ -11,7 +11,7 @@ defmodule VidarAPI.Api.Transactions do
 
   @doc """
   Get transaction by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Transactions/{key}?$select=id, portfolioId, instrumentId, Quantity  
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /Transactions/{key}?$select=id, portfolioId, instrumentId, Quantity
 
   ### Parameters
 
@@ -26,7 +26,10 @@ defmodule VidarAPI.Api.Transactions do
   - `{:ok, VidarAPI.Model.TransactionODataResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_transaction(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.TransactionODataResponse.t} | {:error, Tesla.Env.t}
+  @spec get_transaction(Tesla.Env.client(), integer(), keyword()) ::
+          {:ok, nil}
+          | {:ok, VidarAPI.Model.TransactionODataResponse.t()}
+          | {:error, Tesla.Env.t()}
   def get_transaction(connection, key, opts \\ []) do
     optional_params = %{
       :select => :query,
@@ -69,7 +72,8 @@ defmodule VidarAPI.Api.Transactions do
   - `{:ok, VidarAPI.Model.TransactionODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_transactions(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.TransactionODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  @spec get_transactions(Tesla.Env.client(), keyword()) ::
+          {:ok, VidarAPI.Model.TransactionODataCollectionResponse.t()} | {:error, Tesla.Env.t()}
   def get_transactions(connection, opts \\ []) do
     optional_params = %{
       :select => :query,

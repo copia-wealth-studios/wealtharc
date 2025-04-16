@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.CustodianPortfolioPerformance do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -19,22 +19,21 @@ defmodule VidarAPI.Model.CustodianPortfolioPerformance do
   ]
 
   @type t :: %__MODULE__{
-    :portfolioId => integer() | nil,
-    :statementDate => Date.t,
-    :portfolioCurrency => String.t | nil,
-    :ytdCalculationStartDate => Date.t | nil,
-    :ytdGross => float() | nil,
-    :ytdNet => float() | nil,
-    :mtdGross => float() | nil,
-    :mtdNet => float() | nil
-  }
+          :portfolioId => integer() | nil,
+          :statementDate => Date.t(),
+          :portfolioCurrency => String.t() | nil,
+          :ytdCalculationStartDate => Date.t() | nil,
+          :ytdGross => float() | nil,
+          :ytdNet => float() | nil,
+          :mtdGross => float() | nil,
+          :mtdNet => float() | nil
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:statementDate, :date, nil)
-     |> Deserializer.deserialize(:ytdCalculationStartDate, :date, nil)
+    |> Deserializer.deserialize(:statementDate, :date, nil)
+    |> Deserializer.deserialize(:ytdCalculationStartDate, :date, nil)
   end
 end
-

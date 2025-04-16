@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.PositionPerformance do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -18,17 +18,16 @@ defmodule VidarAPI.Model.PositionPerformance do
   ]
 
   @type t :: %__MODULE__{
-    :positionId => integer() | nil,
-    :ytdMarket => float() | nil,
-    :mtdMarket => float() | nil,
-    :ytdCurrencyEffect => float() | nil,
-    :mtdCurrencyEffect => float() | nil,
-    :ytdPerformance => float() | nil,
-    :mtdPerformance => float() | nil
-  }
+          :positionId => integer() | nil,
+          :ytdMarket => float() | nil,
+          :mtdMarket => float() | nil,
+          :ytdCurrencyEffect => float() | nil,
+          :mtdCurrencyEffect => float() | nil,
+          :ytdPerformance => float() | nil,
+          :mtdPerformance => float() | nil
+        }
 
   def decode(value) do
     value
   end
 end
-

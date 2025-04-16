@@ -11,7 +11,7 @@ defmodule VidarAPI.Api.PortfoliosDailyMetrics do
 
   @doc """
   Get portfolio daily metrics by id
-  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /PortfoliosDailyMetrics/{key}?$select=id  
+  This endpoint uses OData. All operators are supported.    To make it as fast as possible please select the smallest required data set.    Examples:    Selecting data set: /PortfoliosDailyMetrics/{key}?$select=id
 
   ### Parameters
 
@@ -26,7 +26,10 @@ defmodule VidarAPI.Api.PortfoliosDailyMetrics do
   - `{:ok, VidarAPI.Model.PortfolioDailyMetricsODataResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_portfolio_daily_metrics(Tesla.Env.client, integer(), keyword()) :: {:ok, nil} | {:ok, VidarAPI.Model.PortfolioDailyMetricsODataResponse.t} | {:error, Tesla.Env.t}
+  @spec get_portfolio_daily_metrics(Tesla.Env.client(), integer(), keyword()) ::
+          {:ok, nil}
+          | {:ok, VidarAPI.Model.PortfolioDailyMetricsODataResponse.t()}
+          | {:error, Tesla.Env.t()}
   def get_portfolio_daily_metrics(connection, key, opts \\ []) do
     optional_params = %{
       :select => :query,
@@ -69,7 +72,9 @@ defmodule VidarAPI.Api.PortfoliosDailyMetrics do
   - `{:ok, VidarAPI.Model.PortfolioDailyMetricsODataCollectionResponse.t}` on success
   - `{:error, Tesla.Env.t}` on failure
   """
-  @spec get_portfolio_daily_metricss(Tesla.Env.client, keyword()) :: {:ok, VidarAPI.Model.PortfolioDailyMetricsODataCollectionResponse.t} | {:error, Tesla.Env.t}
+  @spec get_portfolio_daily_metricss(Tesla.Env.client(), keyword()) ::
+          {:ok, VidarAPI.Model.PortfolioDailyMetricsODataCollectionResponse.t()}
+          | {:error, Tesla.Env.t()}
   def get_portfolio_daily_metricss(connection, opts \\ []) do
     optional_params = %{
       :select => :query,

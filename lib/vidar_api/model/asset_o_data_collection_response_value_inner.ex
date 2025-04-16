@@ -46,48 +46,47 @@ defmodule VidarAPI.Model.AssetODataCollectionResponseValueInner do
   ]
 
   @type t :: %__MODULE__{
-    :id => integer() | nil,
-    :name => String.t | nil,
-    :currency => String.t | nil,
-    :assetClass => String.t | nil,
-    :assetSubClass => String.t | nil,
-    :investmentType => String.t | nil,
-    :description => String.t | nil,
-    :quotationFactor => float() | nil,
-    :interestRate => float() | nil,
-    :maturityDate => Date.t | nil,
-    :riskScore => integer() | nil,
-    :iban => String.t | nil,
-    :isin => String.t | nil,
-    :valor => String.t | nil,
-    :region => String.t | nil,
-    :country => String.t | nil,
-    :sector => String.t | nil,
-    :industryGroup => String.t | nil,
-    :industry => String.t | nil,
-    :subIndustry => String.t | nil,
-    :instrumentInfo => String.t | nil,
-    :wkn => String.t | nil,
-    :cusip => String.t | nil,
-    :sedol => String.t | nil,
-    :ric => String.t | nil,
-    :figi => String.t | nil,
-    :optionType => String.t | nil,
-    :underlyingInstrument => String.t | nil,
-    :underlyingInstrumentIsin => String.t | nil,
-    :strikePrice => float() | nil,
-    :multiplier => float() | nil,
-    :instrumentIssuer => String.t | nil,
-    :suitabilityScore => integer() | nil,
-    :appropriatenessScore => integer() | nil,
-    :priceSourceForManualPortfolio => String.t | nil
-  }
+          :id => integer() | nil,
+          :name => String.t() | nil,
+          :currency => String.t() | nil,
+          :assetClass => String.t() | nil,
+          :assetSubClass => String.t() | nil,
+          :investmentType => String.t() | nil,
+          :description => String.t() | nil,
+          :quotationFactor => float() | nil,
+          :interestRate => float() | nil,
+          :maturityDate => Date.t() | nil,
+          :riskScore => integer() | nil,
+          :iban => String.t() | nil,
+          :isin => String.t() | nil,
+          :valor => String.t() | nil,
+          :region => String.t() | nil,
+          :country => String.t() | nil,
+          :sector => String.t() | nil,
+          :industryGroup => String.t() | nil,
+          :industry => String.t() | nil,
+          :subIndustry => String.t() | nil,
+          :instrumentInfo => String.t() | nil,
+          :wkn => String.t() | nil,
+          :cusip => String.t() | nil,
+          :sedol => String.t() | nil,
+          :ric => String.t() | nil,
+          :figi => String.t() | nil,
+          :optionType => String.t() | nil,
+          :underlyingInstrument => String.t() | nil,
+          :underlyingInstrumentIsin => String.t() | nil,
+          :strikePrice => float() | nil,
+          :multiplier => float() | nil,
+          :instrumentIssuer => String.t() | nil,
+          :suitabilityScore => integer() | nil,
+          :appropriatenessScore => integer() | nil,
+          :priceSourceForManualPortfolio => String.t() | nil
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:maturityDate, :date, nil)
+    |> Deserializer.deserialize(:maturityDate, :date, nil)
   end
 end
-

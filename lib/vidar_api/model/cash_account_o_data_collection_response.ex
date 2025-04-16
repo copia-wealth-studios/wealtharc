@@ -3,7 +3,7 @@
 
 defmodule VidarAPI.Model.CashAccountODataCollectionResponse do
   @moduledoc """
-  
+
   """
 
   @derive Jason.Encoder
@@ -14,16 +14,15 @@ defmodule VidarAPI.Model.CashAccountODataCollectionResponse do
   ]
 
   @type t :: %__MODULE__{
-    :context => String.t | nil,
-    :count => integer() | nil,
-    :value => [VidarAPI.Model.CashAccount.t] | nil
-  }
+          :context => String.t() | nil,
+          :count => integer() | nil,
+          :value => [VidarAPI.Model.CashAccount.t()] | nil
+        }
 
   alias VidarAPI.Deserializer
 
   def decode(value) do
     value
-     |> Deserializer.deserialize(:value, :list, VidarAPI.Model.CashAccount)
+    |> Deserializer.deserialize(:value, :list, VidarAPI.Model.CashAccount)
   end
 end
-
