@@ -55,7 +55,7 @@ defmodule VidarAPI.Mixfile do
 
   defp package do
     [
-      name: "wealth_data_box_api",
+      name: "vidar_api",
       files: ~w(.formatter.exs config lib/vidar_api mix.exs README* LICENSE*),
       organization: "copia",
       licenses: [],
