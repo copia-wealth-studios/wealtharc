@@ -1,0 +1,4749 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Vidar API",
+    "description": "WealthDataBox API with OData.",
+    "version": "1.0"
+  },
+  "paths": {
+    "/v1/Assets": {
+      "get": {
+        "tags": [
+          "Assets"
+        ],
+        "summary": "Get all assets",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /Assets?$select=id, name, iban, currency\r\n\r\nFiltering data set: /Assets?$filter=name eq 'CASH ACCOUNT IN CHF' or name eq 'CASH ACCOUNT IN USD'",
+        "operationId": "GetAssets",
+        "parameters": [
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter the results using OData syntax.",
+            "schema": {
+              "pattern": "^.+\\s(eq|ne|gt|lt|ge|le|and|or)\\s.+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "description": "Order the results using OData syntax.",
+            "schema": {
+              "pattern": "^[a-zA-Z_]+\\s(asc|desc)(,\\s*[a-zA-Z_]+\\s(asc|desc))*$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Number of results to skip.",
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Whether to include a count of results.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataCollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Assets/WealthArc.CashAccount": {
+      "get": {
+        "tags": [
+          "Assets"
+        ],
+        "summary": "Get all cash accounts",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /Assets/WealthArc.CashAccount?$select=id, name, iban, currency\r\n\r\nFiltering data set: /Assets/WealthArc.CashAccount?$filter=name eq 'CASH ACCOUNT IN CHF' or name eq 'CASH ACCOUNT IN USD'",
+        "operationId": "GetCashAccounts",
+        "parameters": [
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter the results using OData syntax.",
+            "schema": {
+              "pattern": "^.+\\s(eq|ne|gt|lt|ge|le|and|or)\\s.+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "description": "Order the results using OData syntax.",
+            "schema": {
+              "pattern": "^[a-zA-Z_]+\\s(asc|desc)(,\\s*[a-zA-Z_]+\\s(asc|desc))*$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Number of results to skip.",
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Whether to include a count of results.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CashAccountODataCollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Assets/WealthArc.Instrument": {
+      "get": {
+        "tags": [
+          "Assets"
+        ],
+        "summary": "Get all instruments",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /Assets/WealthArc.Instrument?$select=id, name, isin, currency\r\n\r\nFiltering data set: /Assets/WealthArc.Instrument?$filter=name eq 'Restaurant Brands'",
+        "operationId": "GetInstruments",
+        "parameters": [
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter the results using OData syntax.",
+            "schema": {
+              "pattern": "^.+\\s(eq|ne|gt|lt|ge|le|and|or)\\s.+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "description": "Order the results using OData syntax.",
+            "schema": {
+              "pattern": "^[a-zA-Z_]+\\s(asc|desc)(,\\s*[a-zA-Z_]+\\s(asc|desc))*$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Number of results to skip.",
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Whether to include a count of results.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstrumentODataCollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Assets/{key}": {
+      "get": {
+        "tags": [
+          "Assets"
+        ],
+        "summary": "Get asset by id",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\nSelecting data set: /Assets/{key}?$select=id, name, iban, currency\r\n",
+        "operationId": "GetAsset",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Asset unique id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetODataResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/Portfolios": {
+      "get": {
+        "tags": [
+          "Portfolios"
+        ],
+        "summary": "Get all portfolios",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /Portfolios?$select=id, name, currency\r\n\r\nFiltering data set: /Portfolios?$filter=name eq 'Test Portfolio'",
+        "operationId": "GetPortfolios",
+        "parameters": [
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter the results using OData syntax.",
+            "schema": {
+              "pattern": "^.+\\s(eq|ne|gt|lt|ge|le|and|or)\\s.+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "description": "Order the results using OData syntax.",
+            "schema": {
+              "pattern": "^[a-zA-Z_]+\\s(asc|desc)(,\\s*[a-zA-Z_]+\\s(asc|desc))*$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Number of results to skip.",
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Whether to include a count of results.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataCollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Portfolios/{key}": {
+      "get": {
+        "tags": [
+          "Portfolios"
+        ],
+        "summary": "Get portfolio by id",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /Portfolios/{key}?$select=id, name, currency\r\n",
+        "operationId": "GetPortfolio",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Portfolio  unique id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioODataResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/PortfoliosDailyMetrics": {
+      "get": {
+        "tags": [
+          "PortfoliosDailyMetrics"
+        ],
+        "summary": "Get all portfolios daily metrics",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /PortfoliosDailyMetrics?$select=id, statementDate\r\n\r\nFiltering data set: /PortfoliosDailyMetrics?$filter=id eq 12",
+        "operationId": "GetPortfolioDailyMetricss",
+        "parameters": [
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter the results using OData syntax.",
+            "schema": {
+              "pattern": "^.+\\s(eq|ne|gt|lt|ge|le|and|or)\\s.+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "description": "Order the results using OData syntax.",
+            "schema": {
+              "pattern": "^[a-zA-Z_]+\\s(asc|desc)(,\\s*[a-zA-Z_]+\\s(asc|desc))*$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Number of results to skip.",
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Whether to include a count of results.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataCollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/PortfoliosDailyMetrics/{key}": {
+      "get": {
+        "tags": [
+          "PortfoliosDailyMetrics"
+        ],
+        "summary": "Get portfolio daily metrics by id",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /PortfoliosDailyMetrics/{key}?$select=id\r\n",
+        "operationId": "GetPortfolioDailyMetrics",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Portfolio daily metrics unique id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDailyMetricsODataResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/Positions": {
+      "get": {
+        "tags": [
+          "Positions"
+        ],
+        "summary": "Get all positions",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /Positions?$select=portfolioId, instrumentId, statementDate \r\n\r\nFiltering data set: /Positions?$filter=portfolioId eq 20146",
+        "operationId": "GetPositions",
+        "parameters": [
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter the results using OData syntax.",
+            "schema": {
+              "pattern": "^.+\\s(eq|ne|gt|lt|ge|le|and|or)\\s.+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "description": "Order the results using OData syntax.",
+            "schema": {
+              "pattern": "^[a-zA-Z_]+\\s(asc|desc)(,\\s*[a-zA-Z_]+\\s(asc|desc))*$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Number of results to skip.",
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Whether to include a count of results.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataCollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Positions/{key}": {
+      "get": {
+        "tags": [
+          "Positions"
+        ],
+        "summary": "Get position by id",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /Positions/{key}?$select=portfolioId, instrumentId, statementDate, quantity, price\r\n",
+        "operationId": "GetPosition",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Position id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionODataResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/Transactions": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Get all transactions",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /Transactions?$select=id, instrumentId\r\n\r\nFiltering data set: /Transactions?$filter=portfolioId eq 20146",
+        "operationId": "GetTransactions",
+        "parameters": [
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter the results using OData syntax.",
+            "schema": {
+              "pattern": "^.+\\s(eq|ne|gt|lt|ge|le|and|or)\\s.+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "description": "Order the results using OData syntax.",
+            "schema": {
+              "pattern": "^[a-zA-Z_]+\\s(asc|desc)(,\\s*[a-zA-Z_]+\\s(asc|desc))*$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Number of results to skip.",
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Whether to include a count of results.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataCollectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Transactions/{key}": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Get transaction by id",
+        "description": "This endpoint uses OData. All operators are supported.\r\n\r\nTo make it as fast as possible please select the smallest required data set.\r\n\r\nExamples:\r\n\r\nSelecting data set: /Transactions/{key}?$select=id, portfolioId, instrumentId, Quantity\r\n",
+        "operationId": "GetTransaction",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Transaction id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Limits the properties returned in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand",
+            "in": "query",
+            "description": "Indicates the related entities to be represented inline. The maximum depth is 2.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;odata.metadata=minimal;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=minimal;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=full;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.metadata=none;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=true;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;odata.streaming=false;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=false": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/json;IEEE754Compatible=true": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionODataResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Asset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of an Asset",
+            "format": "int32",
+            "example": 25237
+          },
+          "name": {
+            "type": "string",
+            "description": "Asset name",
+            "nullable": true,
+            "example": "Example Asset Name"
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO-4217 compliant currency code",
+            "nullable": true,
+            "example": "USD"
+          },
+          "assetClass": {
+            "type": "string",
+            "description": "Asset Class",
+            "nullable": true,
+            "example": "Deposits, Money Market and Fixed Income"
+          },
+          "assetSubClass": {
+            "type": "string",
+            "description": "Asset Subclass",
+            "nullable": true,
+            "example": "Cash"
+          },
+          "investmentType": {
+            "type": "string",
+            "description": "Investment Type",
+            "nullable": true,
+            "example": "Loan"
+          },
+          "description": {
+            "type": "string",
+            "description": "Cash account description",
+            "nullable": true,
+            "example": "Sample Description"
+          },
+          "quotationFactor": {
+            "type": "number",
+            "description": "Cash account quotation factor",
+            "format": "double",
+            "nullable": true,
+            "example": 1
+          },
+          "interestRate": {
+            "type": "number",
+            "description": "Interest Rate",
+            "format": "double",
+            "nullable": true,
+            "example": 1.3
+          },
+          "maturityDate": {
+            "type": "string",
+            "description": "yyyy-MM-dd format maturity date",
+            "format": "date",
+            "nullable": true,
+            "example": "2018-03-02"
+          },
+          "riskScore": {
+            "maximum": 10,
+            "minimum": 1,
+            "type": "integer",
+            "description": "Risk score in 1-10 scale",
+            "format": "int32",
+            "nullable": true,
+            "example": 3
+          }
+        },
+        "additionalProperties": false,
+        "description": "Entity representing asset"
+      },
+      "AssetODataCollectionResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CashAccount"
+                },
+                {
+                  "$ref": "#/components/schemas/Instrument"
+                }
+              ],
+              "description": "Entity representing asset"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssetODataResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CashAccount"
+              },
+              {
+                "$ref": "#/components/schemas/Instrument"
+              }
+            ],
+            "description": "Entity representing asset",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CashAccount": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Asset"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "iban": {
+                "type": "string",
+                "description": "Cash account IBAN number",
+                "nullable": true,
+                "example": "CH5604835012345678009"
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "description": "Entity representing cash account"
+      },
+      "CashAccountODataCollectionResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CashAccount"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustodianPortfolioPerformance": {
+        "required": [
+          "statementDate"
+        ],
+        "type": "object",
+        "properties": {
+          "portfolioId": {
+            "type": "integer",
+            "description": "Id of a Portfolio",
+            "format": "int32",
+            "example": 30825
+          },
+          "statementDate": {
+            "type": "string",
+            "description": "Statement date",
+            "format": "date",
+            "example": "2024-01-26"
+          },
+          "portfolioCurrency": {
+            "type": "string",
+            "description": "Portfolio Currency",
+            "nullable": true,
+            "example": "CHF"
+          },
+          "ytdCalculationStartDate": {
+            "type": "string",
+            "description": "Start of YTD calculation",
+            "format": "date",
+            "nullable": true,
+            "example": "2024-01-26"
+          },
+          "ytdGross": {
+            "type": "number",
+            "description": "YTD Performance Gross (delivered by Custodian Bank)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00612063
+          },
+          "ytdNet": {
+            "type": "number",
+            "description": "YTD Performance Net (delivered by Custodian Bank)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00612063
+          },
+          "mtdGross": {
+            "type": "number",
+            "description": "MTD Performance Gross (delivered by Custodian Bank)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00532612
+          },
+          "mtdNet": {
+            "type": "number",
+            "description": "MTD Performance Net (delivered by Custodian Bank)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00532612
+          }
+        },
+        "additionalProperties": false
+      },
+      "Instrument": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Asset"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "isin": {
+                "type": "string",
+                "description": "ISIN",
+                "nullable": true,
+                "example": "US46434G8226"
+              },
+              "valor": {
+                "type": "string",
+                "description": "VALOR",
+                "nullable": true,
+                "example": "034388865"
+              },
+              "region": {
+                "type": "string",
+                "description": "Region",
+                "nullable": true,
+                "example": "CH"
+              },
+              "country": {
+                "type": "string",
+                "description": "ISO 3166-1 alpha-2 compliant code",
+                "nullable": true,
+                "example": "CH"
+              },
+              "sector": {
+                "type": "string",
+                "description": "Sector according to GICS",
+                "nullable": true,
+                "example": "Financials"
+              },
+              "industryGroup": {
+                "type": "string",
+                "description": "Industry group according to GICS",
+                "nullable": true,
+                "example": "Diversified Financials"
+              },
+              "industry": {
+                "type": "string",
+                "description": "Industry according to GICS",
+                "nullable": true,
+                "example": "Capital Markets"
+              },
+              "subIndustry": {
+                "type": "string",
+                "description": "Sub-industry according to GICS",
+                "nullable": true,
+                "example": "Diversified Capital Markets"
+              },
+              "instrumentInfo": {
+                "type": "string",
+                "description": "Instrument additional information",
+                "nullable": true,
+                "example": "Sample Additional Info"
+              },
+              "wkn": {
+                "type": "string",
+                "description": "WKN",
+                "nullable": true,
+                "example": "860853"
+              },
+              "cusip": {
+                "type": "string",
+                "description": "CUSIP",
+                "nullable": true,
+                "example": "594918104"
+              },
+              "sedol": {
+                "type": "string",
+                "description": "SEDOL",
+                "nullable": true,
+                "example": "0540528.1"
+              },
+              "ric": {
+                "type": "string",
+                "description": "RIC",
+                "nullable": true,
+                "example": "IBM.N"
+              },
+              "figi": {
+                "type": "string",
+                "description": "FIGI",
+                "nullable": true,
+                "example": "BBG000BLNQ16"
+              },
+              "optionType": {
+                "type": "string",
+                "description": "Option Type if applicable",
+                "nullable": true,
+                "example": "PUT"
+              },
+              "underlyingInstrument": {
+                "type": "string",
+                "description": "Underlying Instrument for options",
+                "nullable": true,
+                "example": "Apple"
+              },
+              "underlyingInstrumentIsin": {
+                "type": "string",
+                "description": "Underlying Instrument ISIN for options",
+                "nullable": true,
+                "example": "US46434G8226"
+              },
+              "strikePrice": {
+                "type": "number",
+                "description": "StrikePrice for options",
+                "format": "double",
+                "nullable": true,
+                "example": 410
+              },
+              "multiplier": {
+                "type": "number",
+                "description": "Multiplier for options",
+                "format": "double",
+                "nullable": true,
+                "example": 1
+              },
+              "instrumentIssuer": {
+                "type": "string",
+                "description": "Instrument Issuer",
+                "nullable": true,
+                "example": "iShares Japan"
+              },
+              "suitabilityScore": {
+                "type": "integer",
+                "description": "Suitability Score",
+                "format": "int32",
+                "nullable": true,
+                "example": 3
+              },
+              "appropriatenessScore": {
+                "type": "integer",
+                "description": "Appropriateness Score",
+                "format": "int32",
+                "nullable": true,
+                "example": 5
+              },
+              "priceSourceForManualPortfolio": {
+                "type": "string",
+                "description": "Price source selected for manual portfolios",
+                "nullable": true,
+                "example": "UBS"
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "description": "Entity representing instrument"
+      },
+      "InstrumentODataCollectionResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Instrument"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MandateType": {
+        "enum": [
+          "Advisory",
+          "Discretionary",
+          "ExecutionOnly",
+          "OffManagement",
+          "ReadOnly"
+        ],
+        "type": "string"
+      },
+      "Portfolio": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of a Portfolio",
+            "format": "int32",
+            "example": 30825
+          },
+          "name": {
+            "type": "string",
+            "description": "Portfolio name",
+            "nullable": true,
+            "example": "Yann Sommer"
+          },
+          "shortName": {
+            "type": "string",
+            "description": "Portfolio short name",
+            "nullable": true,
+            "example": "Yann S."
+          },
+          "custodianId": {
+            "type": "string",
+            "description": "Internal identifier of a Portfolio used by Custodian",
+            "nullable": true,
+            "example": "500273.43"
+          },
+          "custodian": {
+            "type": "string",
+            "description": "Custodian",
+            "nullable": true,
+            "example": "LODH"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Portfolio currency (original from a custodian)",
+            "nullable": true,
+            "example": "EUR"
+          },
+          "wealthArcCurrency": {
+            "type": "string",
+            "description": "WealthArc portfolio currency",
+            "nullable": true,
+            "example": "CHF"
+          },
+          "description": {
+            "type": "string",
+            "description": "Portfolio description",
+            "nullable": true,
+            "example": "Equity portfolio"
+          },
+          "additionalInfo": {
+            "type": "string",
+            "description": "Portfolio additional info",
+            "nullable": true,
+            "example": "No Invoicing"
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Flag confirming if a portfolio is active",
+            "example": true
+          },
+          "inceptionDate": {
+            "type": "string",
+            "description": "Inception date of a portfolio",
+            "format": "date",
+            "nullable": true,
+            "example": "2024-01-26"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "End Date of a portfolio",
+            "format": "date",
+            "nullable": true,
+            "example": "2024-01-26"
+          },
+          "relationshipManager": {
+            "type": "string",
+            "description": "Relationship manager",
+            "nullable": true,
+            "example": "David Gasser"
+          },
+          "portfolioManager": {
+            "type": "string",
+            "description": "Portfolio manager",
+            "nullable": true,
+            "example": "David Gasser"
+          },
+          "assistant": {
+            "type": "string",
+            "description": "Assistant",
+            "nullable": true,
+            "example": "Michael Schmit"
+          },
+          "branch": {
+            "type": "string",
+            "description": "Branch",
+            "nullable": true,
+            "example": "Zürich"
+          },
+          "profitCenter": {
+            "type": "string",
+            "description": "Profit center",
+            "nullable": true,
+            "example": "Switzerland"
+          },
+          "parentPortfolioId": {
+            "type": "integer",
+            "description": "Portfolio Id of a parent from consolidation",
+            "format": "int32",
+            "nullable": true,
+            "example": 30820
+          },
+          "investmentGroup": {
+            "type": "string",
+            "description": "Investment group",
+            "nullable": true,
+            "example": "Growth Equity"
+          },
+          "modelPortfolioId": {
+            "type": "integer",
+            "description": "Portfolio Id of an assigned model portfolio",
+            "format": "int32",
+            "nullable": true,
+            "example": 30827
+          },
+          "mandateType": {
+            "$ref": "#/components/schemas/MandateType"
+          },
+          "isManual": {
+            "type": "boolean",
+            "description": "Flag indicating if it requires simulation since this is a manual portfolio",
+            "example": false
+          },
+          "type": {
+            "$ref": "#/components/schemas/PortfolioType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortfolioAum": {
+        "required": [
+          "statementDate"
+        ],
+        "type": "object",
+        "properties": {
+          "portfolioDailyMetricsId": {
+            "type": "integer",
+            "description": "Id of a Portfolio",
+            "format": "int32",
+            "example": 30825
+          },
+          "statementDate": {
+            "type": "string",
+            "description": "Statement Date",
+            "format": "date",
+            "example": "2024-01-26"
+          },
+          "netAmount": {
+            "type": "number",
+            "description": "Net AuM Amount (loans included)",
+            "format": "double",
+            "example": 3277457.8
+          },
+          "grossAmount": {
+            "type": "number",
+            "description": "Gross AuM Amount (loans excluded)",
+            "format": "double",
+            "example": 3277457.8
+          },
+          "currency": {
+            "type": "string",
+            "description": "AuM Currency",
+            "nullable": true,
+            "example": "CHF"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortfolioDailyMetrics": {
+        "required": [
+          "statementDate"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of a PortfolioDailyMetrics",
+            "format": "int32",
+            "example": 301246
+          },
+          "portfolioId": {
+            "type": "integer",
+            "description": "Id of a Portfolio",
+            "format": "int32",
+            "example": 30825
+          },
+          "statementDate": {
+            "type": "string",
+            "description": "Statement date",
+            "format": "date",
+            "example": "2024-01-05"
+          },
+          "overdraftsCount": {
+            "type": "integer",
+            "description": "Number of cash accounts with negative balance",
+            "format": "int32",
+            "nullable": true,
+            "example": 3
+          },
+          "custodianPerformances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustodianPortfolioPerformance"
+            },
+            "nullable": true
+          },
+          "aums": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PortfolioAum"
+            },
+            "nullable": true
+          },
+          "performances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PortfolioPerformance"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortfolioDailyMetricsODataCollectionResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PortfolioDailyMetrics"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortfolioDailyMetricsODataResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "$ref": "#/components/schemas/PortfolioDailyMetrics"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortfolioODataCollectionResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Portfolio"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortfolioODataResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "$ref": "#/components/schemas/Portfolio"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortfolioPerformance": {
+        "required": [
+          "statementDate"
+        ],
+        "type": "object",
+        "properties": {
+          "portfolioId": {
+            "type": "integer",
+            "description": "Id of a Portfolio",
+            "format": "int32",
+            "example": 30825
+          },
+          "statementDate": {
+            "type": "string",
+            "description": "Statement date",
+            "format": "date",
+            "example": "2024-01-26"
+          },
+          "ytdCalculationStartDate": {
+            "type": "string",
+            "description": "Start of YTD calculation",
+            "format": "date",
+            "nullable": true,
+            "example": "2024-01-26"
+          },
+          "ytdGross": {
+            "type": "number",
+            "description": "YTD Performance Gross WA Portfolio Currency (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00612063
+          },
+          "ytdNet": {
+            "type": "number",
+            "description": "YTD Performance Net WA Portfolio Currency (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00612063
+          },
+          "mtdGross": {
+            "type": "number",
+            "description": "MTD Performance Gross WA Portfolio Currency (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00532612
+          },
+          "mtdNet": {
+            "type": "number",
+            "description": "MTD Performance Net WA Portfolio Currency (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00532612
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortfolioType": {
+        "enum": [
+          "Client",
+          "Model",
+          "NonFinancial",
+          "Consolidated",
+          "External",
+          "Fund",
+          "Benchmark",
+          "Subaccount"
+        ],
+        "type": "string"
+      },
+      "Position": {
+        "required": [
+          "statementDate"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of a Position",
+            "format": "int32",
+            "example": 601345
+          },
+          "portfolioId": {
+            "type": "integer",
+            "description": "Id of a Portfolio",
+            "format": "int32",
+            "example": 25122
+          },
+          "assetId": {
+            "type": "integer",
+            "description": "Id of an Asset",
+            "format": "int32",
+            "example": 25829
+          },
+          "statementDate": {
+            "type": "string",
+            "description": "Statement Date",
+            "format": "date",
+            "example": "2024-01-26"
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Position quantity",
+            "format": "double",
+            "example": 50
+          },
+          "price": {
+            "type": "number",
+            "description": "Last available price",
+            "format": "double",
+            "nullable": true,
+            "example": 1869
+          },
+          "priceCurrency": {
+            "type": "string",
+            "description": "Price currency",
+            "nullable": true,
+            "example": "USD"
+          },
+          "valueDate": {
+            "type": "string",
+            "description": "Value date",
+            "format": "date",
+            "nullable": true,
+            "example": "2024-01-26"
+          },
+          "priceSource": {
+            "type": "string",
+            "description": "Price source name",
+            "nullable": true,
+            "example": "LODH"
+          },
+          "unitCostInPriceCurrency": {
+            "type": "number",
+            "description": "Unit cost in price currency",
+            "format": "double",
+            "nullable": true
+          },
+          "allocation": {
+            "type": "number",
+            "description": "Allocation",
+            "format": "double",
+            "nullable": true,
+            "example": 0.1321
+          },
+          "portfolioCurrency": {
+            "type": "string",
+            "description": "Portfolio Currency",
+            "nullable": true,
+            "example": "EUR"
+          },
+          "bookCostInPortfolioCurrency": {
+            "type": "number",
+            "description": "Book cost in Portfolio currency",
+            "format": "double",
+            "nullable": true,
+            "example": 48499.16
+          },
+          "fxRate": {
+            "type": "number",
+            "description": "FX rate",
+            "format": "double",
+            "nullable": true,
+            "example": 0.9561
+          },
+          "fxRateSource": {
+            "type": "string",
+            "description": "FX rate source",
+            "nullable": true,
+            "example": "LODH"
+          },
+          "accruedInterestInPriceCurrency": {
+            "type": "number",
+            "description": "Accrued interests in price currency",
+            "format": "double",
+            "nullable": true,
+            "example": 0
+          },
+          "accruedInterestInPortfolioCurrency": {
+            "type": "number",
+            "description": "Accrued interests in portfolio currency",
+            "format": "double",
+            "nullable": true,
+            "example": 0
+          },
+          "cumulativeCashflowInPriceCurrency": {
+            "type": "number",
+            "description": "Cumulative cashflow in price currency",
+            "format": "double",
+            "nullable": true,
+            "example": 150.7
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PositionValue"
+            },
+            "description": "Position values in supported currencies",
+            "nullable": true
+          },
+          "pnl": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PositionPnl"
+            },
+            "nullable": true
+          },
+          "performances": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PositionPerformance"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PositionODataCollectionResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Position"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PositionODataResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "$ref": "#/components/schemas/Position"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PositionPerformance": {
+        "type": "object",
+        "properties": {
+          "positionId": {
+            "type": "integer",
+            "description": "Id of a Position",
+            "format": "int32",
+            "example": 25122
+          },
+          "ytdMarket": {
+            "type": "number",
+            "description": "YTD Market in Portfolio CCY (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00612063
+          },
+          "mtdMarket": {
+            "type": "number",
+            "description": "MTD Market in Portfolio CCY (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00612063
+          },
+          "ytdCurrencyEffect": {
+            "type": "number",
+            "description": "YTD Currency Effect in Portfolio CCY (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00532612
+          },
+          "mtdCurrencyEffect": {
+            "type": "number",
+            "description": "MTD Currency Effect in Portfolio CCY (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.00532612
+          },
+          "ytdPerformance": {
+            "type": "number",
+            "description": "YTD Performance in Portfolio CCY (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.01141415
+          },
+          "mtdPerformance": {
+            "type": "number",
+            "description": "MTD Performance in Portfolio CCY (WA methodology)",
+            "format": "double",
+            "nullable": true,
+            "example": -0.01141415
+          }
+        },
+        "additionalProperties": false
+      },
+      "PositionPnl": {
+        "type": "object",
+        "properties": {
+          "positionId": {
+            "type": "integer",
+            "description": "Id of a Position",
+            "format": "int32",
+            "example": 25122
+          },
+          "portfolioId": {
+            "type": "integer",
+            "description": "Id of a Portfolio",
+            "format": "int32",
+            "example": 25122
+          },
+          "totalPnL": {
+            "type": "number",
+            "description": "Total Profit and Loss",
+            "format": "double",
+            "nullable": true,
+            "example": 46023.645
+          },
+          "totalPnLPercentage": {
+            "type": "number",
+            "description": "Total Profit and Loss as a percentage of a position value",
+            "format": "double",
+            "nullable": true,
+            "example": 0.94895756
+          },
+          "marketPnL": {
+            "type": "number",
+            "description": "Market Profit and Loss",
+            "format": "double",
+            "nullable": true,
+            "example": 42812.46
+          },
+          "marketPnLPercentage": {
+            "type": "number",
+            "description": "Market Profit and Loss as a percentage of a position value",
+            "format": "double",
+            "nullable": true,
+            "example": 0.8454688
+          },
+          "pnLCurrencyEffect": {
+            "type": "number",
+            "description": "Currency effect taken into account",
+            "format": "double",
+            "nullable": true,
+            "example": 0.103488795
+          },
+          "totalPnLWithCashflow": {
+            "type": "number",
+            "description": "Total Profit and Loss including cashflows",
+            "format": "double",
+            "nullable": true,
+            "example": 46023.645
+          },
+          "totalPnLWithCashflowPercentage": {
+            "type": "number",
+            "description": "Total Profit and Loss including cashflows as a percentage of a position value",
+            "format": "double",
+            "nullable": true,
+            "example": 0.94895756
+          },
+          "cumulativeCashflow": {
+            "type": "number",
+            "description": "Cumulative Cashflow",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PositionValue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of a PositionValue",
+            "format": "int32"
+          },
+          "positionId": {
+            "type": "integer",
+            "description": "Id of a position",
+            "format": "int32",
+            "example": 495682
+          },
+          "amount": {
+            "type": "number",
+            "description": "Position value amount",
+            "format": "double",
+            "nullable": true,
+            "example": 406091.7
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO4217 compliant format",
+            "nullable": true,
+            "example": "USD"
+          },
+          "fxRateDate": {
+            "type": "string",
+            "description": "Applied FX Rate date",
+            "format": "datetime",
+            "nullable": true,
+            "example": "2018-08-21"
+          },
+          "fxRateFrom": {
+            "type": "string",
+            "description": "Currency which value is converted from",
+            "nullable": true,
+            "example": "GBP"
+          },
+          "fxRateTo": {
+            "type": "string",
+            "description": "Currency to which value is converted",
+            "nullable": true,
+            "example": "CHF"
+          },
+          "fxRate": {
+            "type": "number",
+            "description": "FX Rate",
+            "format": "double",
+            "nullable": true,
+            "example": 1.12572
+          },
+          "fxRateSource": {
+            "type": "string",
+            "description": "Fx Rate Source",
+            "nullable": true,
+            "example": "xignite"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Transaction": {
+        "required": [
+          "transactionDate"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of a transaction",
+            "format": "int32",
+            "example": 601345
+          },
+          "portfolioId": {
+            "type": "integer",
+            "description": "Id of a portfolio",
+            "format": "int32",
+            "example": 25122
+          },
+          "assetId": {
+            "type": "integer",
+            "description": "Id of an asset",
+            "format": "int32",
+            "example": 25829
+          },
+          "type": {
+            "$ref": "#/components/schemas/TransactionType"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of a transaction",
+            "nullable": true,
+            "example": "Stock transaction without cash"
+          },
+          "transactionDate": {
+            "type": "string",
+            "description": "Transaction date",
+            "format": "date",
+            "example": "2018-08-21"
+          },
+          "tradeDate": {
+            "type": "string",
+            "description": "Trade date",
+            "format": "date",
+            "nullable": true,
+            "example": "2018-08-21"
+          },
+          "valueDate": {
+            "type": "string",
+            "description": "Value date",
+            "format": "date",
+            "nullable": true,
+            "example": "2018-08-21"
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Quantity of a transaction",
+            "format": "double",
+            "nullable": true,
+            "example": 946
+          },
+          "price": {
+            "type": "number",
+            "description": "Price used for a transaction",
+            "format": "double",
+            "nullable": true,
+            "example": 145.844
+          },
+          "priceCurrency": {
+            "type": "string",
+            "description": "Price currency",
+            "nullable": true,
+            "example": "USD"
+          },
+          "portfolioCurrency": {
+            "type": "string",
+            "description": "Portfolio currency",
+            "nullable": true,
+            "example": "EUR"
+          },
+          "fxRate": {
+            "type": "number",
+            "description": "FX rate",
+            "format": "double",
+            "nullable": true,
+            "example": 0.8681309
+          },
+          "fxRateSource": {
+            "type": "string",
+            "description": "FX rate source",
+            "nullable": true,
+            "example": "LODH"
+          },
+          "externalOrderId": {
+            "type": "string",
+            "description": "Order Id of a transaction that comes from a custodian",
+            "nullable": true,
+            "example": "41REF.9730137KN1607053"
+          },
+          "referencedInstrumentId": {
+            "type": "integer",
+            "description": "Technical ID of reference Instrument",
+            "format": "int32",
+            "nullable": true
+          },
+          "referencedInstrumentQuantity": {
+            "type": "number",
+            "description": "Quantity of referenced Instrument",
+            "format": "double",
+            "nullable": true
+          },
+          "interest": {
+            "type": "number",
+            "description": "Interest",
+            "format": "double",
+            "nullable": true,
+            "example": 0.0138
+          },
+          "isReversal": {
+            "type": "boolean",
+            "description": "Flag confirming if a transaction is a reversal",
+            "nullable": true,
+            "example": false
+          },
+          "isRiskIncreased": {
+            "type": "boolean",
+            "description": "Flag confirming if a transaction is high risk",
+            "nullable": true,
+            "example": true
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionValue"
+            },
+            "description": "Transaction values in supported currencies",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionODataCollectionResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Transaction"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionODataResponse": {
+        "required": [
+          "context",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "context": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "$ref": "#/components/schemas/Transaction"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionType": {
+        "enum": [
+          "Unclassified",
+          "Buy",
+          "Sell",
+          "Income",
+          "FxTrade",
+          "Fees",
+          "DepositWithdrawal",
+          "Tax",
+          "Subscription",
+          "Redemption",
+          "OperationalFees",
+          "CorporateAction",
+          "InternalTransfer",
+          "Other",
+          "AssetTransfer",
+          "Expense",
+          "OpenDeposit",
+          "CloseDeposit",
+          "Expiry",
+          "Call",
+          "Conversion",
+          "WithholdingTax",
+          "Interest",
+          "Dividend",
+          "Coupon",
+          "BankFee",
+          "ManagementFee",
+          "PerformanceFee",
+          "OpenLoan",
+          "CloseLoan",
+          "FxSpot",
+          "Exchange",
+          "Merger",
+          "Split",
+          "SpinOff",
+          "CashInLieu",
+          "FxForward",
+          "Cancellation",
+          "Commission",
+          "StampDuty",
+          "MarginPayment",
+          "Assimilation",
+          "BonusIssue",
+          "CapitalDecrease",
+          "CapitalIncrease",
+          "Delisting",
+          "NameChange",
+          "PartialRedemption",
+          "ReverseSplit",
+          "OpenLongPosition",
+          "OpenShortPosition"
+        ],
+        "type": "string"
+      },
+      "TransactionValue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id of a TransactionValue",
+            "format": "uuid",
+            "example": "4459df0d-a90b-4c39-aee9-08db1e01c877"
+          },
+          "transactionId": {
+            "type": "integer",
+            "description": "Id of a transaction",
+            "format": "int32",
+            "example": 601345
+          },
+          "amount": {
+            "type": "number",
+            "description": "Value",
+            "format": "double",
+            "nullable": true,
+            "example": 2450
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO4217 compliant format",
+            "nullable": true,
+            "example": "USD"
+          },
+          "fxRateDate": {
+            "type": "string",
+            "description": "Applied FX Rate date",
+            "format": "datetime",
+            "nullable": true,
+            "example": "2018-08-21"
+          },
+          "fxRateFrom": {
+            "type": "string",
+            "description": "Currency which value is converted from",
+            "nullable": true,
+            "example": "GBP"
+          },
+          "fxRateTo": {
+            "type": "string",
+            "description": "Currency to which value is converted",
+            "nullable": true,
+            "example": "CHF"
+          },
+          "fxRate": {
+            "type": "number",
+            "description": "FX Rate",
+            "format": "double",
+            "nullable": true,
+            "example": 1.12572
+          },
+          "fxRateSource": {
+            "type": "string",
+            "description": "Fx Rate Source",
+            "nullable": true,
+            "example": "xignite"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "apiKey",
+        "name": "x-api-key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKey": [ ]
+    }
+  ]
+}
